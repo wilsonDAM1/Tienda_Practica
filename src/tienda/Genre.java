@@ -1,5 +1,12 @@
 package tienda;
 
-public class Genre {
-
+public enum Genre {
+	ACTION,
+	ADVENTURE,
+	RPG,
+	STRATEGY,
+	SPORTS,
+	SIMULATION,
+	PLATFORM,
+	PUZZLE
 }
