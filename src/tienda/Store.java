@@ -25,7 +25,6 @@ public class Store {
 	            return game;
 	        }
 	    }
-
 	    throw new IdInexistenteException("No existe ningún videojuego con el ID: " + id);
 	}
 	
@@ -39,14 +38,39 @@ public class Store {
 	    throw new IdInexistenteException("No existe ningún cliente con el ID: " + id);
 	}
 	
-	public Game buscarJuegoPorTexto(String texto) throws NombreNoEncontrado{
+	public Game buscarJuegoPorTexto(String texto) throws NombreNoEncontradoException{
 	    for (Game game : games) {
 	        if (game.getTittle().contains(texto.toUpperCase())) {
 	            return game;
 	        }
 	    }
-	    
-	    throw new NombreNoEncontrado("No se ha encontrado ningún título relacionado a "+texto);
+	    throw new NombreNoEncontradoException("No se ha encontrado ningún título relacionado a "+texto);
 	}
+	
+	public Game filtrarPorGenero(String texto) throws GeneroInexistenteException{
+	    for (Game game : games) {
+	        if (game.getGenre().name().contains(texto.toUpperCase())) {
+	            return game;
+	        }
+	    }
+	    throw new GeneroInexistenteException("No se ha encontrado ningún título del tipo "+texto);
+	}
+	
+	/*public void comprobarCompra(Purchase purchase) throws IdInexistenteException {
+	    buscarClientePorId(purchase.getCustomer().getId());
+	    buscarJuegoPorId(purchase.getGame().getId());
+	    throw new IdInexistenteException("No se ha podido continuar con la compra porque no existe el cliente o el producto");
+	    if (purchase.getQuantity() <= 0) {
+	    }
+	    
+	}
+	
+	public boolean realizarCompra(int game, int id, int customer) throws CompraInexistenteException{
+		
+	}*/
+	
+	
+	
+	
 	
 }
