@@ -1,5 +1,7 @@
 package tienda;
 
+import java.util.ArrayList;
+
 public class Purchase {
 	private Customer customer;
 	private Game game;
@@ -10,9 +12,12 @@ public class Purchase {
 		this.customer = customer;
 		this.game = game;
 		this.quantity = quantity;
-		this.totalPrice = totalPrice = quantity * game.getPrice();
+		this.totalPrice = game.getPrice() * quantity;
+		purchases.add(this);
 	}
 
+	private static ArrayList<Purchase> purchases = new ArrayList<Purchase>();
+	
 	public Customer getCustomer() { //cliente que realizó la compra
 		return customer;
 	}
@@ -32,6 +37,9 @@ public class Purchase {
 		return totalPrice;
 	}
 
+	 public static ArrayList<Purchase> getPurchases() {
+	        return purchases;
+	}
 	
 	@Override
 	public String toString() {

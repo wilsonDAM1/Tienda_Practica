@@ -22,7 +22,7 @@ public class Game {
 
 
 	public String getTittle() { //Obtener título
-		return tittle;
+		return tittle.toUpperCase();
 	}
 
 

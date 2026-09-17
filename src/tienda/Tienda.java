@@ -6,9 +6,6 @@ public class Tienda {
 		System.out.println("...");
 		
 		
-		
-		
-		 //tengo mucha plata locoooooo
 	}
 
 }
