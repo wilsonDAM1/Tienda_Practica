@@ -52,11 +52,12 @@ public class Store {
 	
 	public void loadCustomers (String filename) throws Exception{
 		File file = new File(filename);
-		try (Scanner scanner = new Scanner(file)){
+		
+		try (Scanner reader = new Scanner(file)){
 			String line = null;
 			
-			while(scanner.hasNextLine()) {
-				line = scanner.nextLine();
+			while(reader.hasNextLine()) {
+				line = reader.nextLine();
 				String[] splitLine = line.split(";");
 				int id = Integer.parseInt(splitLine[0]);
 				String name = splitLine[1];

@@ -4,12 +4,15 @@ import java.util.Scanner;
 
 public class Tienda {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
-		
-		/*Game juego = new Game(1, "juego de prueba", 200, 23.79, Genre.ADVENTURE);
-		System.out.println(juego.toText());*/
 		Store store = new Store();
+		store.loadCustomers("customers.txt");
+		try {
+			store.loadGames("games.txt");
+		} catch (Exception e) {
+			System.out.println("No se ha encontrado el archivo games.txt");
+		}
 		
 		try (Scanner scanner = new Scanner(System.in)) {
 			String input = "";
@@ -37,7 +40,8 @@ public class Tienda {
 					System.out.println(store.getCustomers());
 					break;
 				case "search":
-					System.out.println();
+					System.out.println(store.buscarJuegos(command[1]));
+					break;
 
 				}
 			}
