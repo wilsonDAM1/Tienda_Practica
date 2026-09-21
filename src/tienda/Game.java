@@ -1,5 +1,7 @@
 package tienda;
 
+import Exceptions.CantidadInvalidaException;
+
 public class Game {
 	
 	private int id;
@@ -8,65 +10,62 @@ public class Game {
 	private Double price ;
 	private int stock;
 	
-	public Game(int id, String tittle, Genre genre, Double price, int stock) {
+	public Game(int id, String tittle, int stock, Double price, Genre genre) {
 		this.id = id;
 		this.tittle = tittle;
-		this.genre = genre;
-		this.price = price;
 		this.stock = stock;
+		this.price = price;
+		this.genre = genre;
 	}
 
-	public int getId() { //Obtener identificador
+	public int getId() {
 		return id;
 	}
 
+	public int getStock() {
+		return stock;
+	}
 
-	public String getTittle() { //Obtener título
+	public String getTittle() {
 		return tittle.toUpperCase();
 	}
 
 
-	public Genre getGenre() { //Obtener el género
-		return genre;
-	}
-
-
-	public Double getPrice() { //Obtener el precio
+	public Double getPrice() {
 		return price;
 	}
 
-
-	public int getStock() { //Obtener el stock
-		return stock;
-	}
-
-	public void setStock(int stock) { //Modificar el stock
-		this.stock = stock;
-	} 
 	
-	public void aumentarStock(int cantidad) { 
-		stock += cantidad; 
+	public Genre getGenre() {
+		return genre;
 	}
 	
-	
-	public void reducirStock(int cantidad) throws CantidadInsuficienteException { 
-		
-		if (cantidad > stock) {
-			throw new CantidadInsuficienteException(
-					"No se puede reducir tanto stock"
-					);
-			}	
-		
-		stock -= cantidad; 
-	}
-
-	
-	public boolean comprobarUnidades() { //comprobar unidades
-		return stock > 0 ;
+	public void aumentarStock(int cantidad) throws CantidadInvalidaException {
+		if (cantidad < 0) throw new CantidadInvalidaException();
+			stock += cantidad; 
 		}
 
+
+	public void reducirStock(int cantidad) throws CantidadInvalidaException { 
+		
+		if (cantidad < 0) throw new CantidadInvalidaException();
+		if (cantidad > stock) throw new CantidadInvalidaException();
+		
+		stock -=cantidad;
+	}
+	
+	public void modificarStock(int cantidad) throws CantidadInvalidaException {
+		if(cantidad < 0) return;
+		this.stock = cantidad;
+	} 
+
+	
+	public boolean comprobarStock(int cantidad) {
+		return stock >= cantidad ;
+	}
+
 	@Override
-	public String toString() { //Obtener información del texto
+	public String toString() {
 		return "Game [id=" + id + ", tittle=" + tittle + ", genre=" + genre + ", price=" + price + ", stock=" + stock
 				+ "]";
 	}

@@ -1,5 +1,11 @@
 package tienda;
 
-public class CompraInexistenteException {
+public class CompraInexistenteException extends Exception{
+	
+	public CompraInexistenteException(String mensaje) {
+		
+		super(mensaje);
+	}
+
 
 }
