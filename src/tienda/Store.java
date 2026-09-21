@@ -4,69 +4,71 @@ import java.util.ArrayList;
 
 public class Store {
 	
-	ArrayList<Game> games = new ArrayList<Game>();
-	ArrayList<Customer> customers = new ArrayList<Customer>();
-	ArrayList<Purchase> purchases = new ArrayList<Purchase>();
-
+	ArrayList<Game> games;
+	ArrayList<Customer> customers;
+	ArrayList<Purchase> purchases;
 	
-	public void añadirJuego(Game game) { //añadir videojuego
-	    for (Game g : games) {
-	        if (g.getId() == game.getId()) {
-	            return;
-	        }
-	    }
-
-	    games.add(game);
-	}
-	
-	public Game buscarJuegoPorId(int id) throws IdInexistenteException {
-	    for (Game game : games) {
-	        if (game.getId() == id) {
-	            return game;
-	        }
-	    }
-	    throw new IdInexistenteException("No existe ningún videojuego con el ID: " + id);
-	}
-	
-	public Customer buscarClientePorId(int id) throws IdInexistenteException {
-	    for (Customer customer : customers) {
-	        if (customer.getId() == id) {
-	            return customer;
-	        }
-	    }
-
-	    throw new IdInexistenteException("No existe ningún cliente con el ID: " + id);
-	}
-	
-	public Game buscarJuegoPorTexto(String texto) throws NombreNoEncontradoException{
-	    for (Game game : games) {
-	        if (game.getTittle().contains(texto.toUpperCase())) {
-	            return game;
-	        }
-	    }
-	    throw new NombreNoEncontradoException("No se ha encontrado ningún título relacionado a "+texto);
-	}
-	
-	public Game filtrarPorGenero(String texto) throws GeneroInexistenteException{
-	    for (Game game : games) {
-	        if (game.getGenre().name().contains(texto.toUpperCase())) {
-	            return game;
-	        }
-	    }
-	    throw new GeneroInexistenteException("No se ha encontrado ningún título del tipo "+texto);
-	}
-	
-	/*public void comprobarCompra(Purchase purchase) throws IdInexistenteException {
-	    buscarClientePorId(purchase.getCustomer().getId());
-	    buscarJuegoPorId(purchase.getGame().getId());
-	    throw new IdInexistenteException("No se ha podido continuar con la compra porque no existe el cliente o el producto");
-	    if (purchase.getQuantity() <= 0) {
-	    }
-	    
-	}
-	
-	public boolean realizarCompra(int game, int id, int customer) throws CompraInexistenteException{
+	public Store() {
+		games = new ArrayList<Game>();
+		customers = new ArrayList<Customer>();
+		purchases = new ArrayList<Purchase>();
 		
+		Game j1 = new Game (1, "juego de prueba", 200, 23.79, Genre.ADVENTURE);
+		Game j2 = new Game (2, "juego de prueba", 200, 23.79, Genre.ADVENTURE);
+		Game j3 = new Game (3, "juego de prueba", 200, 23.79, Genre.ADVENTURE);
+		
+		games.add(new Game (1, "juego de prueba", 200, 23.79, Genre.ADVENTURE));
+	}
+
+	
+	public void añadirJuego(Game game) {
+	    for (Game g : games) {
+	        if (game.equals(g)) /*throw new Exception ("El juego con id x ya existe")*/;
+	        }
+	    games.add(game);
+	    }
+	
+	public Game buscarJuegoPorId(int id) /*throws IdInexistenteException*/ {
+	    for (Game g : games) {
+	        if (g.getId() == id) return g;
+	        }
+	    //throw new IdInexistenteException("No existe ningún videojuego con el ID: " + id);
+	    return null;
+	    }
+	
+	public Customer buscarClientePorId(int id) /*throws IdInexistenteException*/ {
+	    for (Customer c : customers) {
+	        if (c.getId() == id) return c;
+	        }
+	    //throw new IdInexistenteException("No existe ningún cliente con el ID: " + id);
+	    return null;
+	    }
+
+	
+	public ArrayList<Game> buscarJuegos(String name){
+		String LowerName = name.toLowerCase();
+		ArrayList<Game> juegos = new ArrayList<Game>();
+		
+		for(Game juego:games) {
+			if(juego.getTittle().toLowerCase().contains(LowerName))juegos.add(juego);
+		}
+		return juegos;
+	}
+	
+	public ArrayList<Game> buscarJuegos(Genre genre){
+		ArrayList<Game> juegos = new ArrayList<Game>();
+		for(Game juego:games) {
+			if(juego.getGenre() == genre) juegos.add(juego);
+			}
+		return juegos;
+	}
+	
+	/*public void comprarJuego(int clienteID, int juegoID, int cantidad) {
+		if(buscarJuegoPorId(juegoID) == null) throw new Exception("No existe el juego");
+		if(buscarClientePorId(clienteID) == null) throw new Exception("No existe el cliente");
+		if(cantidad < 1) throw new Exception("Cantidad no valida");
+		if(!Game.comprobarStock(cantidad)) throw new Exception("No hay stock suficiente");
+		if(Customer.checkBalance(g, cantidad)) throw new Exception("No hay stock suficiente");
 	}*/
 	
 	

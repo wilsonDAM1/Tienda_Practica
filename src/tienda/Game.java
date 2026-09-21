@@ -4,11 +4,11 @@ import Exceptions.CantidadInvalidaException;
 
 public class Game {
 	
-	private int id;
-	private String tittle;
-	private Genre genre;
-	private Double price ;
-	private int stock;
+	int id;
+	String tittle;
+	Genre genre;
+	double price ;
+	int stock;
 	
 	public Game(int id, String tittle, int stock, Double price, Genre genre) {
 		this.id = id;
@@ -62,6 +62,30 @@ public class Game {
 	
 	public boolean comprobarStock(int cantidad) {
 		return stock >= cantidad ;
+	}
+	
+	public boolean hayStock() {
+		return stock >0;
+	}
+	
+	public String toText() {
+		return String.format("""
+				ID: %d
+				Tittle: %s
+				Genre: %s
+				Price: %.2f
+				Stock: %d
+				""",
+				id, tittle, genre, price, stock);
+	}
+	
+	public boolean equals(Object other) {
+		if(other == this) return true;
+		
+		if(!(other instanceof Game)) return false;
+		
+		Game g = (Game)other;
+		return id == g.getId();
 	}
 
 	@Override
